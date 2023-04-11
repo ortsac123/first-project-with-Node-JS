@@ -15,7 +15,7 @@
 
 const express = require('express')
 const app = express()
-const puerto = 3000;
+const puerto = process.env.PORT || 3977;
 
 //--------------------Motor de plantillas----------------------
 app.set('view engine', 'ejs'); //Con esto le decimos a express que usamos un motor de plantillas llamado EJS
@@ -37,7 +37,7 @@ app.get('/servicios',(req, res)=>{
 
 
 app.listen(puerto, ()=>{   //Para habilitar la escucha del puerto 3000
-    console.log("Te estoy escuchando por el puerto 3000 :)");
+    console.log(`Te estoy escuchando por el puerto ${puerto}`);
 })
 
 app.use((req, res, next) => {
