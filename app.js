@@ -13,7 +13,8 @@
 
 //------------EXPRESS-----------------------
 
-const express = require('express')
+const express = require('express');
+const router = require('./router/RutasWeb');
 const app = express()
 const puerto = process.env.PORT || 3977;
 
@@ -23,23 +24,19 @@ app.set('views', __dirname + '/views')
 
 app.use(express.static(__dirname + '/public')) //Es importante mantener esta linea ya que en views no se hace css no js, este se hace en public
 
-app.get('/', (req, res)=>{
-    res.render("index", {titulo: "Titulo dinamico"})
-});
-
-app.get('/servicios',(req, res)=>{
-    res.render("servicios", {tituloservicios: "Esta es la pgina de servicios"})
-})
 
 //app.get('/servicios', (req, res)=>{
   //  res.send("Esta es la pagina de servicios");
 //})
 
+app.use('/', require('./router/RutasWeb'));
+
+app.use('/mascotas', require('./router/mascotas'))
 
 app.listen(puerto, ()=>{   //Para habilitar la escucha del puerto 3000
     console.log(`Te estoy escuchando por el puerto ${puerto}`);
 })
 
 app.use((req, res, next) => {
-    res.status(404).render("404")
+    res.status(404).render("404.ejs")
 })
